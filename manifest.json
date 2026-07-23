@@ -17,6 +17,6 @@
   },
   "action": {
     "default_title": "Tirar Screenshot",
-    "default_popup": "popup.html"
+    "default_popup": "popup/popup.html"
   }
 }

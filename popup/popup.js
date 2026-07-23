@@ -18,7 +18,7 @@ function render(state = {}) {
   extra.textContent = message;
 }
 
-// Lê o progresso salvo pelo service worker e atualiza a interface.
+// Le o progresso salvo pelo service worker e atualiza a interface.
 function refresh() {
   chrome.storage.local.get(['printIFFarProgress'], (result) => {
     render(result.printIFFarProgress || {});

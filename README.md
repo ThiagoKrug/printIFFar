@@ -31,9 +31,9 @@ Extensão Chrome (Manifest V3) para capturar uma página longa por viewport, con
 
 - background.js
 	- lógica principal de captura, montagem do PDF e download
-- popup.html
+- popup/popup.html
 	- interface do popup da extensão
-- popup.js
+- popup/popup.js
 	- progresso em tempo real e disparo automático da captura
 - manifest.json
 	- configuração da extensão e permissões
