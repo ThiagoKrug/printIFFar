@@ -9,14 +9,12 @@
     "storage",
     "downloads"
   ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
     "default_title": "Tirar Screenshot",
+    "default_icon": "images/icon2.png",
     "default_popup": "popup/popup.html"
   }
 }
