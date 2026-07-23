@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "PrintIFFar",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "declarativeNetRequest",
+    "storage",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Tirar Screenshot",
+    "default_popup": "popup.html"
+  }
+}
