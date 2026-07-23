@@ -1,76 +1,76 @@
 # PrintIFFar
 
-Extensao Chrome (Manifest V3) para capturar uma pagina longa por viewport, consolidar tudo em um unico PDF e baixar automaticamente o arquivo final.
+Extensão Chrome (Manifest V3) para capturar uma página longa por viewport, consolidar tudo em um único PDF e baixar automaticamente o arquivo final.
 
 ## O que este projeto faz
 
-- Captura a pagina visivel em blocos verticais (viewport por viewport).
-- Junta as capturas em uma unica pagina de PDF.
-- Adiciona cabecalho no PDF com:
-	- URL completa da pagina
-	- Data e hora da geracao
-	- CNPJ extraido da propria pagina
-- Exibe progresso no popup da extensao durante a captura.
-- Aplica protecoes para reduzir inconsistencias durante a rolagem (limite de chamadas, bloqueio de carregamento dinamico e restauracao do estado ao final).
+- Captura a página visível em blocos verticais (viewport por viewport).
+- Junta as capturas em uma única página de PDF.
+- Adiciona cabeçalho no PDF com:
+	- URL completa da página
+	- Data e hora da geração
+	- CNPJ extraído da própria página
+- Exibe progresso no popup da extensão durante a captura.
+- Aplica proteções para reduzir inconsistências durante a rolagem (limite de chamadas, bloqueio de carregamento dinâmico e restauração do estado ao final).
 
 ## Fluxo de funcionamento
 
-1. O usuario clica no icone da extensao.
+1. O usuário clica no ícone da extensão.
 2. O popup abre e inicia a captura automaticamente.
 3. O service worker:
-	 - identifica dimensoes da pagina
+	 - identifica dimensões da página
 	 - bloqueia carregamento incremental durante a captura
 	 - percorre os offsets de scroll
 	 - captura cada viewport com chrome.tabs.captureVisibleTab
-	 - remove sobreposicao do ultimo print, quando necessario
-4. As imagens sao convertidas em um PDF unico com jsPDF.
-5. O PDF e baixado como screenshot-completa.pdf.
-6. O estado da pagina e restaurado (scroll, APIs e estilos temporarios).
+	 - remove sobreposição do último print, quando necessário
+4. As imagens são convertidas em um PDF único com jsPDF.
+5. O PDF é baixado como screenshot-completa.pdf.
+6. O estado da página é restaurado (scroll, APIs e estilos temporários).
 
 ## Estrutura principal
 
 - background.js
-	- logica principal de captura, montagem do PDF e download
+	- lógica principal de captura, montagem do PDF e download
 - popup.html
-	- interface do popup da extensao
+	- interface do popup da extensão
 - popup.js
-	- progresso em tempo real e disparo automatico da captura
+	- progresso em tempo real e disparo automático da captura
 - manifest.json
-	- configuracao da extensao e permissoes
+	- configuração da extensão e permissões
 - jspdf.umd.min.js
-	- biblioteca para geracao do PDF
+	- biblioteca para geração do PDF
 
-## Permissoes utilizadas
+## Permissões utilizadas
 
 - activeTab
 	- acesso a aba ativa para captura
 - scripting
-	- execucao de scripts na pagina para scroll, leitura de dados e ajustes temporarios
+	- execução de scripts na página para scroll, leitura de dados e ajustes temporários
 - declarativeNetRequest
-	- bloqueio temporario de requests para evitar crescimento dinamico durante a captura
+	- bloqueio temporário de requests para evitar crescimento dinâmico durante a captura
 - storage
-	- comunicacao de progresso entre background e popup
+	- comunicação de progresso entre background e popup
 - downloads
 	- download do PDF gerado
 - host_permissions: <all_urls>
-	- necessario para regras de rede em diferentes dominios
+	- necessário para regras de rede em diferentes domínios
 
 ## Como usar
 
 1. Abra chrome://extensions.
 2. Ative Modo do desenvolvedor.
-3. Carregue a pasta do projeto como extensao sem compactacao.
-4. Abra a pagina alvo.
-5. Clique no icone da extensao.
-6. Aguarde o progresso no popup e nao troque de aba ate o fim.
+3. Carregue a pasta do projeto como extensão sem compactação.
+4. Abra a página alvo.
+5. Clique no ícone da extensão.
+6. Aguarde o progresso no popup e não troque de aba até o fim.
 
-## Observacoes tecnicas
+## Observações técnicas
 
 - O processo usa rate limit para evitar erro MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND.
-- Em paginas com elementos fixed/sticky, a extensao oculta esses elementos a partir do segundo print para evitar repeticao visual.
-- O CNPJ e extraido por padroes de texto e aceita formato alfanumerico.
+- Em páginas com elementos fixed/sticky, a extensão oculta esses elementos a partir do segundo print para evitar repetição visual.
+- O CNPJ é extraído por padrões de texto e aceita formato alfanumérico.
 
 ## Limites conhecidos
 
-- Sites com comportamento altamente dinamico podem exigir ajustes de seletor/estrategia.
-- PDF muito longo pode gerar arquivo grande, dependendo da altura total e da resolucao capturada.
+- Sites com comportamento altamente dinâmico podem exigir ajustes de seletor/estratégia.
+- PDF muito longo pode gerar arquivo grande, dependendo da altura total e da resolução capturada.
